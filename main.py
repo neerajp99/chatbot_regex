@@ -33,7 +33,7 @@ def credit(val):
         print('BOT: You have $150 due at Walmart')
         return
     elif re.search(r'outstanding', val) or re.search(r'pending.*payment', val) or re.search(r'payment.*pending', val) or re.search(r'pending.*amount', val) or re.search(r'amount.*pending', val) or re.search(r'[money]*.*[pending]*[remaining]*', val) or re.search(r'[pending]*[remaining]*.*money', val) or re.search(r'ongoing.*due', val) or re.search(r'incomplete.*payment', val) or re.search(r'payment.*incomplete.*[bank]*', val) or re.search(r'owe.*bank', val) or re.search(r'.*unpaid', val) or re.search(r'[to]*.*bank', val) or re.search(r'unfinishe?d?.*[payment]*', val) or re.search(r'to.*pay?i?d?', val):
-        print("BOT: Your current outstanding amount to the bank is $380")
+        print("BOT: Your current outstanding amount to the bank is $380 on September 06, 2020")
         return
     else:
         print('BOT: I can’t answer that. Please contact the branch.')
