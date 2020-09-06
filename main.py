@@ -3,24 +3,24 @@ from textblob import TextBlob
 
 # Function to fetch details of bank account
 def account(val):
-    if re.search('balance', val) or re.search('amount.*[left]*', val) or re.search(r'remain[ing]*', val) or re.search(r'available', val):
+    if re.search('balance', val) or re.search(r'remain[ing]*', val) or re.search(r'available', val):
         # Credit or debit transactions
         if re.search('transactions?', val) or re.search('settlem?e?n?t?', val) or re.search(r'last.*[time]*.*spend?t?', val):
-            if re.search(r'debit', val) or re.search(r'spent?d?', val) or re.search(r'deduced?', val) or re.search(r'deducte?d?', val) or re.search(r'withdrawn?', val) or re.search(r'last.*debit.*transactions?', val) or re.search(r'removed?', val) or re.search('last.*remove?a?l?', val) or re.search(r'last.*spend?t?', val):  
+            if re.search(r'.*debite?d?', val) or re.search(r'spent?d?', val) or re.search(r'deduced?', val) or re.search(r'deducte?d?', val) or re.search(r'withdrawn?', val) or re.search(r'last.*debit.*transactions?', val) or re.search(r'removed?', val) or re.search('last.*remove?a?l?', val) or re.search(r'last.*spend?t?', val):  
                 print('BOT: Your last debit transaction is for $220 at Costco.')
                 return
-            if re.search(r'credite?d?', val) or re.search(r'added', val) or re.search(r'include?d?', val) or re.search(r'last.*credit.*transactions?', val) or re.search(r'inserte?d?', val) or re.search('last.*attache?d?', val) or re.search(r'last.*received?', val): 
+            elif re.search(r'.*credite?d?', val) or re.search(r'added', val) or re.search(r'include?d?', val) or re.search(r'last.*credit.*transactions?', val) or re.search(r'inserte?d?', val) or re.search('last.*attache?d?', val) or re.search(r'last.*received?', val): 
                 print('BOT: Your last credit transaction is $450 from Mr.James Powell')
                 return
         else:
             print("BOT: Your Bank balance is $2089.")
             return
     # Credit Transactions 
-    if re.search(r'debit', val) or re.search(r'spent?d?', val) or re.search(r'deduced?', val) or re.search(r'deducte?d?', val) or re.search(r'withdrawn?', val) or re.search(r'last.*debit.*transactions?', val) or re.search(r'removed?', val) or re.search('last.*remove?a?l?', val) or re.search(r'last.*spend?t?', val):  
+    elif re.search(r'.*debite?d?', val) or re.search(r'spent?d?', val) or re.search(r'deduced?', val) or re.search(r'deducte?d?', val) or re.search(r'withdrawn?', val) or re.search(r'last.*debit.*transactions?', val) or re.search(r'removed?', val) or re.search('last.*remove?a?l?', val) or re.search(r'last.*spend?t?', val):  
         print('BOT: Your last debit transaction is for $220 at Costco.')
         return
     # Debit Transactions
-    if re.search(r'credite?d?', val) or re.search(r'added', val) or re.search(r'include?d?', val) or re.search(r'last.*credit.*transactions?', val) or re.search(r'inserte?d?', val) or re.search('last.*attache?d?', val) or re.search(r'last.*received?', val): 
+    elif re.search(r'.*credite?d?', val) or re.search(r'added', val) or re.search(r'include?d?', val) or re.search(r'last.*credit.*transactions?', val) or re.search(r'inserte?d?', val) or re.search('last.*attache?d?', val) or re.search(r'last.*received?', val): 
         print('BOT: Your last credit transaction is $450 from Mr.James Powell')
         return
     else:
@@ -58,8 +58,11 @@ if __name__ == '__main__':
                 pass
         # Removing any special character which is not required 
         val = re.sub('[^a-zA-Z0-9 \n\.]', '', val)
+        
         # Correcting spelling and converting to lowercase
         val = str(TextBlob(val).correct()).lower()
+        if 'created' in val:
+            val = val.replace('created', 'credited')
         if re.search('[Aa]ccount', val) or re.search('[Bb]ank', val):
             if re.search(r'creditcard', val) or re.search(r'[Cc]redit.*card', val):
                 credit(val)
@@ -82,3 +85,4 @@ if __name__ == '__main__':
         else:
              print('BOT: I can’t answer that. Please contact the branch.')
         count += 1
+
