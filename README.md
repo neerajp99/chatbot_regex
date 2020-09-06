@@ -21,5 +21,18 @@ Install Text Blob library
 
 Once installed, either open the main.ipynb in jupyter notebook or run ``` python3 main.py ``` to start the program.
 
+### Rule based chatbot questions
+
+- Enquire about the balance in an account.
+
+- Details of the last debit transaction to an account.
+
+- Details of the last credit transaction to an an account.
+
+- enquire about the outstanding in the credit card account.
+
+- find out details of any payment that is due on the credit card and by when.
+
+
 
 
