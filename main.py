@@ -3,7 +3,7 @@ from textblob import TextBlob
 
 # Function to fetch details of bank account
 def account(val):
-    if re.search('balance', val) or re.search(r'remain[ing]*', val) or re.search(r'available', val):
+    if re.search('balance', val) or re.search(r'remain[ing]*', val) or re.search(r'available', val) or re.search(r'money.*bank', val) or re.search(r'bank.*money', val):
         # Credit or debit transactions
         if re.search('transactions?', val) or re.search('settlem?e?n?t?', val) or re.search(r'last.*[time]*.*spend?t?', val):
             if re.search(r'.*debite?d?', val) or re.search(r'spent?d?', val) or re.search(r'deduced?', val) or re.search(r'deducte?d?', val) or re.search(r'withdrawn?', val) or re.search(r'last.*debit.*transactions?', val) or re.search(r'removed?', val) or re.search('last.*remove?a?l?', val) or re.search(r'last.*spend?t?', val):  
