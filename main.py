@@ -47,7 +47,7 @@ if __name__ == '__main__':
             val = input()
         else: 
             val = ""
-            cond_prompt = input('BOT: Do you need any further help? \n').lower()
+            cond_prompt = input('BOT: Do you need any further help?\n').lower()
             if re.search(r'[Yy][eu]s', cond_prompt) or re.search(r'[Yy]eah', cond_prompt) or re.search(r'^y', cond_prompt) or re.search(r'[Yy][aeup]', cond_prompt):
                 val = input("BOT: What can I help you with? \n")
             elif re.search(r'[Nn]o', cond_prompt) or re.search(r'[Nn]o[pe?]*', cond_prompt):
@@ -63,9 +63,22 @@ if __name__ == '__main__':
         val = str(TextBlob(val).correct()).lower()
         if 'created' in val:
             val = val.replace('created', 'credited')
+        
         if re.search('[Aa]ccount', val) or re.search('[Bb]ank', val):
             if re.search(r'creditcard', val) or re.search(r'[Cc]redit.*card', val):
-                credit(val)
+                incorrect_count = 0
+                while True:
+                    if incorrect_count <= 5:
+                        ac = input('Kindly enter your credit card number (format: AA123456AA):')
+                        if re.search(r'[A-Za-z][A-Za-z]\d\d\d\d\d\d[A-Za-z][A-Za-z]', ac):
+                            credit(val)
+                            break
+                        else:
+                            print('Incorrect credit card number, try again!')
+                            incorrect_count += 1
+                    else:
+                        print('Sorry, too many incorrect credit card numbers...')
+                        break  
             else:
                 incorrect_count = 0
                 while True:
@@ -81,8 +94,21 @@ if __name__ == '__main__':
                         print('Sorry, too many incorrect account numbers...')
                         break  
         elif re.search(r'creditcard', val) or re.search(r'credit.*card', val):
-            credit(val)
+            incorrect_count = 0
+            while True:
+                if incorrect_count <= 5:
+                    ac = input('Kindly enter your credit card number (format: AA123456AA):')
+                    if re.search(r'[A-Za-z][A-Za-z]\d\d\d\d\d\d[A-Za-z][A-Za-z]', ac):
+                        credit(val)
+                        break
+                    else:
+                        print('Incorrect credit card number, try again!')
+                        incorrect_count += 1
+                else:
+                    print('Sorry, too many incorrect credit card numbers...')
+                    break  
         else:
              print('BOT: I can’t answer that. Please contact the branch.')
         count += 1
+
 
